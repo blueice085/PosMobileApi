@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using PosMobileApi.Constants;
+using PosMobileApi.DALs;
 using PosMobileApi.Filters;
 using PosMobileApi.Models.Responses;
 using PosMobileApi.Services;
@@ -41,7 +42,7 @@ namespace PosMobileApi
         public static void AddTokenAuthentication(this IServiceCollection services, IConfiguration Configuration)
         {
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(ConstantStrings.OTPTOKENAUTH, options =>
+                    .AddJwtBearer(ConstantStrings.OTPTOKENAUTH, options =>
                 {
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
@@ -71,7 +72,7 @@ namespace PosMobileApi
                         }
                     };
                 })
-            .AddJwtBearer(ConstantStrings.AUTHACCESSTOKEN, x =>
+                    .AddJwtBearer(ConstantStrings.AUTHACCESSTOKEN, x =>
             {
                 x.TokenValidationParameters = new TokenValidationParameters
                 {
@@ -101,7 +102,7 @@ namespace PosMobileApi
                     },
                 };
             })
-            .AddJwtBearer(ConstantStrings.REFRESHTOKENAUTH, options =>
+                    .AddJwtBearer(ConstantStrings.REFRESHTOKENAUTH, options =>
                 {
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
@@ -220,6 +221,7 @@ namespace PosMobileApi
         #region Adding DAL Servies
         public static void AddDALServices(this IServiceCollection services)
         {
+            services.AddTransient<IAuthDAL, AuthDAL>();
 
             services.AddTransient<IBasicAuthUserService, BasicAuthUserService>();
 

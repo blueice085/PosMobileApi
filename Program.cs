@@ -8,6 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddPersistance(builder.Configuration);
 
+builder.Services.AddRedisService(builder.Configuration);
+
 builder.Services.AddDALServices();
 
 // Add services to the container.

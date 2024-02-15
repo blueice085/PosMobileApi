@@ -38,18 +38,16 @@ namespace PosMobileApi.DALs
         private readonly IUow<Context> _uow;
         private readonly IOTPCodeGenerator _otp;
         private readonly ITokenGenerator _token;
-        private readonly ITemplateCore _template;
         private readonly IConfiguration _config;
         private readonly IDistributedCache _redisCache;
         //private readonly ISMSSender _smtp;
         private readonly bool _isMPT;
 
-        public AuthDAL(IUow<Context> uow, IOTPCodeGenerator otp, ITokenGenerator token, ITemplateCore template, IConfiguration config, IDistributedCache redisCache)
+        public AuthDAL(IUow<Context> uow, IOTPCodeGenerator otp, ITokenGenerator token, IConfiguration config, IDistributedCache redisCache)
         {
             _uow = uow;
             _otp = otp;
             _token = token;
-            _template = template;
             _config = config;
             _redisCache = redisCache;
             _isMPT = _config["IsMPT"] == "1";
