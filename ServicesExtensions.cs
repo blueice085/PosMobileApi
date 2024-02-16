@@ -230,6 +230,9 @@ namespace PosMobileApi
             services.AddTransient<ITokenGenerator, TokenGenerator>();
 
             services.AddTransient<IPurchaseDAL, PurchaseDAL>();
+            services.AddTransient<IUserPointsDAL, UserPointsDAL>();
+            services.AddTransient<IUserCuponsDAL, UserCuponsDAL>();
+
         }
         #endregion
     }

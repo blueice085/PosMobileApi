@@ -14,7 +14,8 @@ namespace PosMobileApi.Data
         public virtual DbSet<UserSession> UserSessions { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Purchase> Purchases { get; set; }
-
+        public virtual DbSet<UserPoints> UserPoints { get; set; }
+        public virtual DbSet<UserCupons> UserCupons { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
