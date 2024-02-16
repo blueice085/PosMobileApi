@@ -41,11 +41,12 @@ namespace PosMobileApi.DALs
             //var userId = claim.FindFirst(ConstantStrings.USERID).Value;
 
             var data = await _uow.Repository<Purchase>().Query(x => x.UserId == userId)
+                .Include(x => x.User).Include(x => x.Product)
                 .Select(x => new PurchaseResDto
                 {
                     Id = x.Id,
-                    UserId = x.UserId,
-                    ProductId = x.ProductId,
+                    User = $"{x.User.FirstName} {x.User.LastName}",
+                    Product = x.Product.Name,
                     Quantity = x.Quantity,
                     Date = x.Date
                 }).ToListAsync();
