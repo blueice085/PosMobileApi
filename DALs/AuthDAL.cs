@@ -82,8 +82,17 @@ namespace PosMobileApi.DALs
                 CreatedAt = DateTime.UtcNow,
             };
 
+            try
+            {
             await _uow.Repository<User>().AddAsync(user);
             await _uow.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
 
             var profile = new ProfileResDto
             {
@@ -358,8 +367,6 @@ namespace PosMobileApi.DALs
             if (!string.IsNullOrEmpty(redisValue)) _redisCache.Remove(redisKey);
 
             var userInfo = await _uow.Repository<User>().SingleAsync(x => x.Id == userId);
-            userInfo.FCMToken = null;
-            userInfo.Platform = null;
             _uow.Repository<User>().Update(userInfo);
             await _uow.SaveChangesAsync();
             return new BaseResponse<string>
