@@ -43,95 +43,95 @@ namespace PosMobileApi
         {
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(ConstantStrings.OTPTOKENAUTH, options =>
-                {
-                    options.TokenValidationParameters = new TokenValidationParameters
                     {
-                        ValidateIssuer = false,
-                        ValidateAudience = false,
-                        ValidateLifetime = true,
-                        ValidateIssuerSigningKey = true,
-                        ValidIssuer = Configuration["Jwt:Issuer"],
-                        ValidAudience = Configuration["Jwt:Audience"],
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"])),
-                        ClockSkew = TimeSpan.Zero
-                    };
-                    options.Events = new JwtBearerEvents
-                    {
-                        OnChallenge = async context =>
+                        options.TokenValidationParameters = new TokenValidationParameters
                         {
-                            context.Response.StatusCode = 401;
-                            var response = new BaseResponse<object>
-                            {
-                                Code = 401,
-                                Message = "Invalid OTP Token or Token Expire!"
-                            };
-                            context.HttpContext.Response.ContentType = "application/json";
-                            context.HttpContext.Response.Headers.Add("error-code", "401");
-                            await context.HttpContext.Response.Body.WriteAsync(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(response)));
-                            context.HandleResponse();
-                        }
-                    };
-                })
-                    .AddJwtBearer(ConstantStrings.AUTHACCESSTOKEN, x =>
-            {
-                x.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
-                    ValidIssuer = Configuration["Jwt:Issuer"],
-                    ValidAudience = Configuration["Jwt:Audience"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"])),
-                    ClockSkew = TimeSpan.Zero
-                };
-                x.Events = new JwtBearerEvents
-                {
-                    OnChallenge = async context =>
-                    {
-                        context.Response.StatusCode = 401;
-                        var response = new BaseResponse<object>
-                        {
-                            Code = 401,
-                            Message = "Invalid Access Token or Token Expire!"
+                            ValidateIssuer = false,
+                            ValidateAudience = false,
+                            ValidateLifetime = true,
+                            ValidateIssuerSigningKey = true,
+                            ValidIssuer = Configuration["Jwt:Issuer"],
+                            ValidAudience = Configuration["Jwt:Audience"],
+                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"])),
+                            ClockSkew = TimeSpan.Zero
                         };
-                        context.HttpContext.Response.ContentType = "application/json";
-                        context.HttpContext.Response.Headers.Add("error-code", "401");
-                        await context.HttpContext.Response.Body.WriteAsync(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(response)));
-                        context.HandleResponse();
-                    },
-                };
-            })
-                    .AddJwtBearer(ConstantStrings.REFRESHTOKENAUTH, options =>
-                {
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuer = true,
-                        ValidateAudience = true,
-                        ValidateLifetime = true,
-                        ValidateIssuerSigningKey = true,
-                        ValidIssuer = Configuration["Jwt:Issuer"],
-                        ValidAudience = Configuration["Jwt:Audience"],
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"])),
-                        ClockSkew = TimeSpan.Zero
-                    };
-                    options.Events = new JwtBearerEvents
-                    {
-                        OnChallenge = async context =>
+                        options.Events = new JwtBearerEvents
                         {
-                            context.Response.StatusCode = 401;
-                            var response = new BaseResponse<object>
+                            OnChallenge = async context =>
                             {
-                                Code = 498,
-                                Message = "Invalid Refresh Token or Refresh Token Expire!"
-                            };
-                            context.HttpContext.Response.ContentType = "application/json";
-                            context.HttpContext.Response.Headers.Add("error-code", "401");
-                            await context.HttpContext.Response.Body.WriteAsync(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(response)));
-                            context.HandleResponse();
-                        }
-                    };
-                });
+                                context.Response.StatusCode = 401;
+                                var response = new BaseResponse<object>
+                                {
+                                    Code = 401,
+                                    Message = "Invalid OTP Token or Token Expire!"
+                                };
+                                context.HttpContext.Response.ContentType = "application/json";
+                                context.HttpContext.Response.Headers.Add("error-code", "401");
+                                await context.HttpContext.Response.Body.WriteAsync(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(response)));
+                                context.HandleResponse();
+                            }
+                        };
+                    })
+                    .AddJwtBearer(ConstantStrings.AUTHACCESSTOKEN, x =>
+                    {
+                        x.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            ValidateIssuer = false,
+                            ValidateAudience = false,
+                            ValidateLifetime = true,
+                            ValidateIssuerSigningKey = true,
+                            ValidIssuer = Configuration["Jwt:Issuer"],
+                            ValidAudience = Configuration["Jwt:Audience"],
+                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"])),
+                            ClockSkew = TimeSpan.Zero
+                        };
+                        x.Events = new JwtBearerEvents
+                        {
+                            OnChallenge = async context =>
+                            {
+                                context.Response.StatusCode = 401;
+                                var response = new BaseResponse<object>
+                                {
+                                    Code = 401,
+                                    Message = "Invalid Access Token or Token Expire!"
+                                };
+                                context.HttpContext.Response.ContentType = "application/json";
+                                context.HttpContext.Response.Headers.Add("error-code", "401");
+                                await context.HttpContext.Response.Body.WriteAsync(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(response)));
+                                context.HandleResponse();
+                            },
+                        };
+                    })
+                    .AddJwtBearer(ConstantStrings.REFRESHTOKENAUTH, options =>
+                    {
+                        options.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            ValidateIssuer = false,
+                            ValidateAudience = false,
+                            ValidateLifetime = true,
+                            ValidateIssuerSigningKey = true,
+                            ValidIssuer = Configuration["Jwt:Issuer"],
+                            ValidAudience = Configuration["Jwt:Audience"],
+                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"])),
+                            ClockSkew = TimeSpan.Zero
+                        };
+                        options.Events = new JwtBearerEvents
+                        {
+                            OnChallenge = async context =>
+                            {
+                                context.Response.StatusCode = 401;
+                                var response = new BaseResponse<object>
+                                {
+                                    Code = 498,
+                                    Message = "Invalid Refresh Token or Refresh Token Expire!"
+                                };
+                                context.HttpContext.Response.ContentType = "application/json";
+                                context.HttpContext.Response.Headers.Add("error-code", "401");
+                                await context.HttpContext.Response.Body.WriteAsync(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(response)));
+                                context.HandleResponse();
+                            }
+                        };
+                    });
         }
         #endregion
 
@@ -229,7 +229,7 @@ namespace PosMobileApi
 
             services.AddTransient<ITokenGenerator, TokenGenerator>();
 
-            //services.AddTransient<IAuthDAL, AuthDAL>();
+            services.AddTransient<IPurchaseDAL, PurchaseDAL>();
         }
         #endregion
     }

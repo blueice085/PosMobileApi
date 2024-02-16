@@ -424,6 +424,7 @@ namespace PosMobileApi.DALs
         }
         #endregion
 
+        
         #region private methods
         private SignupReqDto RetrieveMobileInfo(SignupReqDto model, ClaimsPrincipal claim)
         {
