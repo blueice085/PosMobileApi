@@ -22,8 +22,5 @@ namespace PosMobileApi.Models.Requests
         [Required]
         [MaxLength(15)]
         public string Mobile { get; set; }
-
-        [MaxLength(36)]
-        public string LanguageId { get; set; }
     }
 }

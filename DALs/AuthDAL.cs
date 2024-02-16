@@ -148,8 +148,9 @@ namespace PosMobileApi.DALs
             string code = _otp.GenerateOTPCode();
             bool isSuccess = false;
 
-            //if (phoneNumber.StartsWith("95") || phoneNumber.StartsWith("86") || phoneNumber.StartsWith("66"))
-            //    isSuccess = await _smtp.SendBySMSPoh(phoneNumber, code, isEn);
+            if (phoneNumber.StartsWith("95") || phoneNumber.StartsWith("86") || phoneNumber.StartsWith("66"))
+                //isSuccess = await _smtp.SendBySMSPoh(phoneNumber, code, isEn);
+                isSuccess = true;
             //else
             //    isSuccess = await _smtp.SendByAwsSNS(phoneNumber, code, isEn);
 
@@ -177,6 +178,7 @@ namespace PosMobileApi.DALs
             {
                 Code = (int)HttpStatusCode.OK,
                 Message = HttpStatusCode.OK.ToString(),
+                Data = code
             };
         }
         #endregion
@@ -228,16 +230,6 @@ namespace PosMobileApi.DALs
                         Message = "Account disabled by Flow Admin.",
                     };
                 }
-
-                if (!string.IsNullOrEmpty(model.SocialType) && !string.IsNullOrEmpty(model.SocialIdentifier))
-                {
-                    var user = await _uow.Repository<User>().SingleAsync(x => x.Id == registeredUser.Id);
-
-                    _uow.Repository<User>().Update(user);
-
-                    await _uow.SaveChangesAsync();
-                }
-
 
                 return new BaseResponse<SuccessLoginResDto>()
                 {
@@ -294,15 +286,6 @@ namespace PosMobileApi.DALs
                     Code = (int)HttpStatusCode.Continue,
                     Message = "Account disabled by Flow Admin.",
                 };
-            }
-
-            if (!string.IsNullOrEmpty(model.SocialType) && !string.IsNullOrEmpty(model.SocialIdentifier))
-            {
-                var user = await _uow.Repository<User>().SingleAsync(x => x.Id == registeredUserLive.Id);
-
-                _uow.Repository<User>().Update(user);
-
-                await _uow.SaveChangesAsync();
             }
 
             var data = await GetSuccessLoginInfo(registeredUserLive);
