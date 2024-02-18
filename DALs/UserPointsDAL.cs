@@ -7,10 +7,12 @@ using PosMobileApi.Data.Entities;
 using PosMobileApi.Models.Requests;
 using PosMobileApi.Models.Responses;
 using PosMobileApi.Services;
+using System.Diagnostics;
 using System.Globalization;
 using System.Net;
 using System.Security.Claims;
 using System.Text;
+using static Pipelines.Sockets.Unofficial.SocketConnection;
 using static PosMobileApi.Constants.EnumCollections;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
@@ -18,44 +20,49 @@ namespace PosMobileApi.DALs
 {
     public interface IUserPointsDAL
     {
-        Task<BaseResponse<List<PurchaseResDto>>> GetUserPurchases(string userId, ClaimsPrincipal claim);
-
-        //BaseResponse<string> GetRedisValue(string key);
+        Task<BaseResponse<UserPoints>> GetUserPoints(string userId);
     }
 
     public class UserPointsDAL : IUserPointsDAL
     {
         private readonly IUow<Context> _uow;
         private readonly IConfiguration _config;
-        //private readonly IDistributedCache _redisCache;
+        private readonly IDistributedCache _redisCache;
 
-        public UserPointsDAL(IUow<Context> uow, IConfiguration config)
+        public UserPointsDAL(IUow<Context> uow, IConfiguration config, IDistributedCache redisCache)
         {
             _uow = uow;
             _config = config;
-            //_redisCache = redisCache;
+            _redisCache = redisCache;
         }
 
-        public async Task<BaseResponse<List<PurchaseResDto>>> GetUserPurchases(string userId, ClaimsPrincipal claim)
+        public async Task<BaseResponse<UserPoints>> GetUserPoints(string userId)
         {
-            //var userId = claim.FindFirst(ConstantStrings.USERID).Value;
+            var redisKey = RedisKey.UserPoints + userId;
+            var redisValue = _redisCache.GetString(redisKey);
+            if (!string.IsNullOrEmpty(redisValue))
+            {
+                //Debug.WriteLine("RESULT FROM REDIS CACHE");
 
-            var data = await _uow.Repository<Purchase>().Query(x => x.UserId == userId)
-                .Include(x => x.User).Include(x => x.Product)
-                .Select(x => new PurchaseResDto
+                var data = JsonConvert.DeserializeObject<UserPoints>(redisValue);
+                return new BaseResponse<UserPoints>
                 {
-                    Id = x.Id,
-                    User = $"{x.User.FirstName} {x.User.LastName}",
-                    Product = x.Product.Name,
-                    Quantity = x.Quantity,
-                    Date = x.Date
-                }).ToListAsync();
+                    Code = (int)HttpStatusCode.OK,
+                    Message = HttpStatusCode.OK.ToString(),
+                    Data = data
+                };
+            }
 
-            return new BaseResponse<List<PurchaseResDto>>
+            var userPoints = await _uow.Repository<UserPoints>().GetAsync(userId);
+
+            try { _redisCache.SetString(redisKey, JsonConvert.SerializeObject(userPoints)); }//, new DistributedCacheEntryOptions().SetAbsoluteExpiration(new TimeSpan(0, 15, 0))
+            catch (Exception ex) { Console.WriteLine($"Redis Error ::: GetUserPoints, {ex.Message}"); }
+
+            return new BaseResponse<UserPoints>
             {
                 Code = (int)HttpStatusCode.OK,
                 Message = HttpStatusCode.OK.ToString(),
-                Data = data
+                Data = userPoints
             };
         }
     }

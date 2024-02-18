@@ -46,8 +46,6 @@
     {
         public const string Home = "home";
         public const string UserSession = "user_session_";
-        public const string Countries = "countries";
-        public const string Languages = "languages";
-        public const string Localization = "localization";
+        public const string UserPoints = "user_points_";
     }
 }

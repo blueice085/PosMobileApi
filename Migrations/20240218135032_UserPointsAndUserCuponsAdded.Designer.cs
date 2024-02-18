@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PosMobileApi.Data;
 
@@ -10,9 +11,11 @@ using PosMobileApi.Data;
 namespace PosMobileApi.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20240218135032_UserPointsAndUserCuponsAdded")]
+    partial class UserPointsAndUserCuponsAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -157,13 +160,19 @@ namespace PosMobileApi.Migrations
 
             modelBuilder.Entity("PosMobileApi.Data.Entities.UserPoints", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<string>("UserId")
                         .HasColumnType("varchar(255)");
 
                     b.Property<int>("Points")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.Property<string>("UserId1")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("UserId");
+
+                    b.HasIndex("UserId1");
 
                     b.ToTable("UserPoints");
                 });
@@ -206,6 +215,17 @@ namespace PosMobileApi.Migrations
                     b.HasOne("PosMobileApi.Data.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("PosMobileApi.Data.Entities.UserPoints", b =>
+                {
+                    b.HasOne("PosMobileApi.Data.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

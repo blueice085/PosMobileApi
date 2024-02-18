@@ -5,9 +5,7 @@ namespace PosMobileApi.Data.Entities
     public class UserPoints
     {
         [Key]
-        public string UserId { get; set; }
+        public string Id { get; set; }
         public int Points { get; set; }
-
-        public User User { get; set; }
     }
 }
