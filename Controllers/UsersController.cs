@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PosMobileApi.Constants;
 using PosMobileApi.DALs;
+using PosMobileApi.Data.Entities;
 using PosMobileApi.Models.Requests;
 using PosMobileApi.Models.Responses;
 using System.Net;
@@ -15,12 +16,14 @@ namespace PosMobileApi.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IPurchaseDAL _purchaseDal;
-        private readonly IUserPointsDAL _userpointDal;
+        private readonly IUserPointsDAL _pointDal;
+        private readonly IUserCuponsDAL _cuponDal;
 
-        public UsersController(IPurchaseDAL purchaseDal,IUserPointsDAL userpointDal)
+        public UsersController(IPurchaseDAL purchaseDal,IUserPointsDAL pointDal,IUserCuponsDAL cuponDal)
         {
             _purchaseDal = purchaseDal;
-            _userpointDal = userpointDal;
+            _pointDal = pointDal;
+            _cuponDal = cuponDal;
         }
 
         /// <summary>
@@ -54,7 +57,24 @@ namespace PosMobileApi.Controllers
         [Authorize(AuthenticationSchemes = Constants.ConstantStrings.AUTHACCESSTOKEN)]
         public async Task<IActionResult> GetUserPoints([FromQuery] string userId)
         {
-            return Ok(await _userpointDal.GetUserPoints(userId));
+            return Ok(await _pointDal.GetUserPoints(userId));
+        }
+
+        /// <summary>
+        /// Retrieve all User's Cupons (Access Token).
+        /// </summary>
+        /// <param name="userId">User Id</param>
+        /// <response code="200">Success</response>
+        /// <response code="401">Unauthorized</response>
+        /// <response code="500">Something went wrong</response>
+        [HttpGet("GetUserCupons")]
+        [ProducesResponseType(typeof(BaseResponse<List<UserCupons>>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(BaseResponse<List<UserCupons>>), (int)HttpStatusCode.Unauthorized)]
+        [ProducesResponseType(typeof(BaseResponse<List<UserCupons>>), (int)HttpStatusCode.InternalServerError)]
+        [Authorize(AuthenticationSchemes = Constants.ConstantStrings.AUTHACCESSTOKEN)]
+        public async Task<IActionResult> GetUserCupons([FromQuery] string userId)
+        {
+            return Ok(await _cuponDal.GetUserCupons(userId));
         }
     }
 }

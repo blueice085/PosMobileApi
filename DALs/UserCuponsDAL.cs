@@ -18,44 +18,31 @@ namespace PosMobileApi.DALs
 {
     public interface IUserCuponsDAL
     {
-        Task<BaseResponse<List<PurchaseResDto>>> GetUserPurchases(string userId, ClaimsPrincipal claim);
-
-        //BaseResponse<string> GetRedisValue(string key);
+        Task<BaseResponse<List<UserCupons>>> GetUserCupons(string userId);
     }
 
     public class UserCuponsDAL : IUserCuponsDAL
     {
         private readonly IUow<Context> _uow;
         private readonly IConfiguration _config;
-        //private readonly IDistributedCache _redisCache;
+        private readonly IDistributedCache _redisCache;
 
-        public UserCuponsDAL(IUow<Context> uow, IConfiguration config)
+        public UserCuponsDAL(IUow<Context> uow, IConfiguration config, IDistributedCache redisCache)
         {
             _uow = uow;
             _config = config;
-            //_redisCache = redisCache;
+            _redisCache = redisCache;
         }
 
-        public async Task<BaseResponse<List<PurchaseResDto>>> GetUserPurchases(string userId, ClaimsPrincipal claim)
+        public async Task<BaseResponse<List<UserCupons>>> GetUserCupons(string userId)
         {
-            //var userId = claim.FindFirst(ConstantStrings.USERID).Value;
+            var userCupons = await _uow.Repository<UserCupons>().Query(x => x.UserId == userId).ToListAsync();
 
-            var data = await _uow.Repository<Purchase>().Query(x => x.UserId == userId)
-                .Include(x => x.User).Include(x => x.Product)
-                .Select(x => new PurchaseResDto
-                {
-                    Id = x.Id,
-                    User = $"{x.User.FirstName} {x.User.LastName}",
-                    Product = x.Product.Name,
-                    Quantity = x.Quantity,
-                    Date = x.Date
-                }).ToListAsync();
-
-            return new BaseResponse<List<PurchaseResDto>>
+            return new BaseResponse<List<UserCupons>>
             {
                 Code = (int)HttpStatusCode.OK,
                 Message = HttpStatusCode.OK.ToString(),
-                Data = data
+                Data = userCupons
             };
         }
     }
