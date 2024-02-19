@@ -1,0 +1,314 @@
+{
+	"info": {
+		"_postman_id": "a954038a-d802-469f-a46b-ff50ee2a087b",
+		"name": "POS_Mobile",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10473508"
+	},
+	"item": [
+		{
+			"name": "RequestOTP",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{basicPassword}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{basicUsername}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"countryCode\": \"95\",\r\n  \"mobile\": \"95131677\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}api/auths/requestOTP",
+					"host": [
+						"{{baseURL}}api"
+					],
+					"path": [
+						"auths",
+						"requestOTP"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VerifyOTP",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{basicPassword}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{basicUsername}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"countryCode\": \"95\",\r\n  \"mobile\": \"95131677\",\r\n  \"otp\":\"936502\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}api/auths/verifyOTP",
+					"host": [
+						"{{baseURL}}api"
+					],
+					"path": [
+						"auths",
+						"verifyOTP"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb3VudHJ5Q29kZSI6Ijk1IiwibW9iaWxlIjoiOTUxMzE2NzciLCJqdGkiOiIzNjBlODU5Mi0wY2MzLTRlNTEtYjIwNC04YmY0ZTgyOWUzZjIiLCJleHAiOjE3MDgwNjIzODEsImlzcyI6Imh0dHBzOi8vbG9jYWxob3N0OjQ0Mzg3LyIsImF1ZCI6Imh0dHBzOi8vbG9jYWxob3N0OjQ0Mzg3LyJ9.zICraYMP9hjXVcyF0ywL_Ijhtg9qhMBKeYuktYVgnHM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"countryCode\": \"95\",\r\n  \"mobile\": \"95131677\",\r\n  \"firstName\": \"Aung\",\r\n  \"lastName\": \"Myint Than\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}api/auths/register",
+					"host": [
+						"{{baseURL}}api"
+					],
+					"path": [
+						"auths",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "RefreshToken",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uSWQiOiI0ZDgwMjE4ZC01YmJiLTRhZmEtOTRmOS00YzIwYWNlZDI0MDIiLCJpZCI6IjgxYTMwMzNmLTM0YTQtNDkyNi05MjQ2LTE1MjJkYmQyM2Y0NyIsImp0aSI6ImYzNmM4OGViLTk2NjYtNDE5Ni1iZGI1LTFlNjc4YjBiZGI5MCIsImV4cCI6MTcwODE1MTIxMywiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzODcvIiwiYXVkIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzODcvIn0.Hp5B0ZTTTZAYM-4LzS8hyIcb4eDRil2u3yXXKr00RpM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}api/auths/refreshToken",
+					"host": [
+						"{{baseURL}}api"
+					],
+					"path": [
+						"auths",
+						"refreshToken"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetUserPurchases",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjgxYTMwMzNmLTM0YTQtNDkyNi05MjQ2LTE1MjJkYmQyM2Y0NyIsImZpcnN0TmFtZSI6IkF1bmciLCJsYXN0TmFtZSI6Ik15aW50IFRoYW4iLCJtb2JpbGUiOiI5NTEzMTY3NyIsInNlc3Npb25JZCI6ImY2ZTk1NTk1LTNiZGEtNDliZS1hYmI2LTc3NzdmMDNkNGE0MSIsImp0aSI6IjcyMmFkYzM0LTVhMzgtNGUwNy1hZTcwLTdiZGQzODRhM2M2MiIsImV4cCI6MTcwODA3ODI1NiwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzODcvIiwiYXVkIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzODcvIn0.LdHJFj90bMnFe7hJhclmPsle1yzXwRw2H_zB71L1WMM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}api/purchases/getUserPurchases?userId=81a3033f-34a4-4926-9246-1522dbd23f47",
+					"host": [
+						"{{baseURL}}api"
+					],
+					"path": [
+						"purchases",
+						"getUserPurchases"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "81a3033f-34a4-4926-9246-1522dbd23f47"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetUserPoints",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNmNTFiN2M1LTY5NjctNDFiNi04MDg2LWVmNGExOWIxN2ViOCIsImZpcnN0TmFtZSI6IkF1bmciLCJsYXN0TmFtZSI6Ik15aW50IFRoYW4iLCJtb2JpbGUiOiI5NTEzMTY3NyIsInNlc3Npb25JZCI6Ijg4MDQ3M2ZhLWFkOTgtNDUwNC05OTg5LWU4ODRkMjQyYzFlYSIsImp0aSI6ImJiNjE1ZTIzLWY0OTUtNDA0NC1hMWUxLTg3OWRhNWY2MDJiMyIsImV4cCI6MTcwODI2NzUxNSwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzODcvIiwiYXVkIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzODcvIn0.6Oo2rhplo27VaKMbDbJsjpM0N16pcK22JaKXxp94TLk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}api/users/getUserPoints?userId=cf51b7c5-6967-41b6-8086-ef4a19b17eb8",
+					"host": [
+						"{{baseURL}}api"
+					],
+					"path": [
+						"users",
+						"getUserPoints"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "cf51b7c5-6967-41b6-8086-ef4a19b17eb8"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetUserCupons",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNmNTFiN2M1LTY5NjctNDFiNi04MDg2LWVmNGExOWIxN2ViOCIsImZpcnN0TmFtZSI6IkF1bmciLCJsYXN0TmFtZSI6Ik15aW50IFRoYW4iLCJtb2JpbGUiOiI5NTEzMTY3NyIsInNlc3Npb25JZCI6ImRhZjJlMjBhLTgyOWYtNGVlYS04NmJmLTAyMTM2M2Q2ZGNiZSIsImp0aSI6ImJjNmJlMDkzLTBhZjktNDA1OC1iMzNkLTQxMjkwNWZmZWU1ZSIsImV4cCI6MTcwODI3NDI1NCwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzODcvIiwiYXVkIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzODcvIn0.VibuGpk67S7QrWf2OItUOW-ndqi5drrwydn7pSnLF0A",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}api/users/getUserCupons?userId=cf51b7c5-6967-41b6-8086-ef4a19b17eb8",
+					"host": [
+						"{{baseURL}}api"
+					],
+					"path": [
+						"users",
+						"getUserCupons"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "cf51b7c5-6967-41b6-8086-ef4a19b17eb8"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ProcessUserPoints",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{basicPassword}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{basicUsername}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}api/job/processUserPoints",
+					"host": [
+						"{{baseURL}}api"
+					],
+					"path": [
+						"job",
+						"processUserPoints"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.environment.get(\"variable_key\");"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
