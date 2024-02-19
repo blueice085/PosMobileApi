@@ -26,14 +26,10 @@ namespace PosMobileApi.DALs
     public class PurchaseDAL : IPurchaseDAL
     {
         private readonly IUow<Context> _uow;
-        private readonly IConfiguration _config;
-        //private readonly IDistributedCache _redisCache;
 
         public PurchaseDAL(IUow<Context> uow, IConfiguration config)
         {
             _uow = uow;
-            _config = config;
-            //_redisCache = redisCache;
         }
 
         public async Task<BaseResponse<List<PurchaseResDto>>> GetUserPurchases(string userId, ClaimsPrincipal claim)

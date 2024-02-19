@@ -51,14 +51,21 @@ CREATE TABLE IF NOT EXISTS `purchases` (
   CONSTRAINT `FK_Purchases_Users_UserId` FOREIGN KEY (`UserId`) REFERENCES `users` (`Id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table postest.purchases: ~6 rows (approximately)
+-- Dumping data for table postest.purchases: ~9 rows (approximately)
 INSERT INTO `purchases` (`Id`, `UserId`, `ProductId`, `Quantity`, `Date`) VALUES
 	('682ed14d-cc9e-11ee-99a9-d8bbc1cfaf05', '81a3033f-34a4-4926-9246-1522dbd23f47', 'd10c6806-cc9c-11ee-99a9-d8bbc1cfaf05', 1, '2024-02-13 14:06:01.000000'),
 	('682fe587-cc9e-11ee-99a9-d8bbc1cfaf05', '81a3033f-34a4-4926-9246-1522dbd23f47', 'd10bc33b-cc9c-11ee-99a9-d8bbc1cfaf05', 2, '2024-02-14 15:07:01.000000'),
 	('6830c6f0-cc9e-11ee-99a9-d8bbc1cfaf05', '81a3033f-34a4-4926-9246-1522dbd23f47', 'd10b3a5a-cc9c-11ee-99a9-d8bbc1cfaf05', 5, '2024-02-15 16:08:01.000000'),
+	('6edd91ed-cf00-11ee-9b57-d8bbc1cfaf05', 'ff3c2147-7ac8-4c65-a912-bf202af2a2c6', 'd10c6806-cc9c-11ee-99a9-d8bbc1cfaf05', 3, '2024-02-19 14:55:26.000000'),
+	('6ee01f48-cf00-11ee-9b57-d8bbc1cfaf05', 'ff3c2147-7ac8-4c65-a912-bf202af2a2c6', 'd10bc33b-cc9c-11ee-99a9-d8bbc1cfaf05', 3, '2024-02-19 14:55:26.000000'),
+	('6ee0c540-cf00-11ee-9b57-d8bbc1cfaf05', 'ff3c2147-7ac8-4c65-a912-bf202af2a2c6', 'd10b3a5a-cc9c-11ee-99a9-d8bbc1cfaf05', 3, '2024-02-19 14:55:26.000000'),
 	('a0050dd4-ccb1-11ee-99a9-d8bbc1cfaf05', '81a3033f-34a4-4926-9246-1522dbd23f47', 'd10a6501-cc9c-11ee-99a9-d8bbc1cfaf05', 10, '2024-02-10 14:06:01.000000'),
 	('a00ef4c5-ccb1-11ee-99a9-d8bbc1cfaf05', '81a3033f-34a4-4926-9246-1522dbd23f47', 'd1090a4c-cc9c-11ee-99a9-d8bbc1cfaf05', 20, '2024-02-11 15:07:01.000000'),
-	('a0100a83-ccb1-11ee-99a9-d8bbc1cfaf05', '81a3033f-34a4-4926-9246-1522dbd23f47', 'd107a600-cc9c-11ee-99a9-d8bbc1cfaf05', 50, '2024-02-12 16:08:01.000000');
+	('a0100a83-ccb1-11ee-99a9-d8bbc1cfaf05', '81a3033f-34a4-4926-9246-1522dbd23f47', 'd107a600-cc9c-11ee-99a9-d8bbc1cfaf05', 50, '2024-02-12 16:08:01.000000'),
+	('edf469c0-cf04-11ee-9b57-d8bbc1cfaf05', 'ff3c2147-7ac8-4c65-a912-bf202af2a2c6', 'd10a6501-cc9c-11ee-99a9-d8bbc1cfaf05', 3, '2024-02-19 15:27:37.000000'),
+	('f69ef1e2-cf04-11ee-9b57-d8bbc1cfaf05', 'ff3c2147-7ac8-4c65-a912-bf202af2a2c6', 'd10a6501-cc9c-11ee-99a9-d8bbc1cfaf05', 3, '2024-02-19 15:27:51.000000'),
+	('f6a0ac8c-cf04-11ee-9b57-d8bbc1cfaf05', 'ff3c2147-7ac8-4c65-a912-bf202af2a2c6', 'd1090a4c-cc9c-11ee-99a9-d8bbc1cfaf05', 3, '2024-02-19 15:27:51.000000'),
+	('f6a15af0-cf04-11ee-9b57-d8bbc1cfaf05', 'ff3c2147-7ac8-4c65-a912-bf202af2a2c6', 'd107a600-cc9c-11ee-99a9-d8bbc1cfaf05', 10, '2024-02-19 15:27:51.000000');
 
 -- Dumping structure for table postest.usercupons
 CREATE TABLE IF NOT EXISTS `usercupons` (
@@ -90,6 +97,7 @@ CREATE TABLE IF NOT EXISTS `userotpcodes` (
 
 -- Dumping data for table postest.userotpcodes: ~5 rows (approximately)
 INSERT INTO `userotpcodes` (`Id`, `Mobile`, `OtpCode`, `IsUsed`, `CreatedAt`, `ExpiredAt`) VALUES
+	('0c7d729f-fccd-40ff-8053-7ff53dcff23e', '9595131678', '120545', 0, '2024-02-19 08:20:31.266315', '2024-02-19 08:25:31.266345'),
 	('212ffcf4-b77f-4a35-8b7b-dc3c84609aef', '9595131677', '857837', 1, '2024-02-16 06:26:19.909595', '2024-02-16 06:31:19.909595'),
 	('2a673d57-4bd4-44d4-9f52-37bb3e2148df', '9595131677', '242440', 1, '2024-02-16 04:58:36.054897', '2024-02-16 05:03:36.054925'),
 	('87422145-576a-4af0-a48d-0208e4d73a26', '9595131677', '929442', 0, '2024-02-16 04:46:10.519221', '2024-02-16 04:51:10.519222'),
@@ -105,7 +113,7 @@ CREATE TABLE IF NOT EXISTS `userpoints` (
 
 -- Dumping data for table postest.userpoints: ~0 rows (approximately)
 INSERT INTO `userpoints` (`Points`, `Id`) VALUES
-	(8500, '81a3033f-34a4-4926-9246-1522dbd23f47');
+	(17000, '81a3033f-34a4-4926-9246-1522dbd23f47');
 
 -- Dumping structure for table postest.users
 CREATE TABLE IF NOT EXISTS `users` (
@@ -122,7 +130,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 -- Dumping data for table postest.users: ~1 rows (approximately)
 INSERT INTO `users` (`Id`, `FirstName`, `LastName`, `CountryCode`, `Mobile`, `Status`, `CreatedAt`, `UpdatedAt`) VALUES
-	('81a3033f-34a4-4926-9246-1522dbd23f47', 'Aung', 'Myint Than', '95', '95131677', 'Active', '2024-02-16 04:46:42.300161', NULL);
+	('81a3033f-34a4-4926-9246-1522dbd23f47', 'Aung', 'Myint Than', '95', '95131677', 'Active', '2024-02-16 04:46:42.300161', NULL),
+	('ff3c2147-7ac8-4c65-a912-bf202af2a2c6', 'Kaung', 'Sak Hein', '95', '95131678', 'Active', '2024-02-19 08:21:26.956390', NULL);
 
 -- Dumping structure for table postest.usersessions
 CREATE TABLE IF NOT EXISTS `usersessions` (
@@ -133,7 +142,8 @@ CREATE TABLE IF NOT EXISTS `usersessions` (
 
 -- Dumping data for table postest.usersessions: ~1 rows (approximately)
 INSERT INTO `usersessions` (`Id`, `SessionId`) VALUES
-	('81a3033f-34a4-4926-9246-1522dbd23f47', 'f6e95595-3bda-49be-abb6-7777f03d4a41');
+	('81a3033f-34a4-4926-9246-1522dbd23f47', 'f6e95595-3bda-49be-abb6-7777f03d4a41'),
+	('ff3c2147-7ac8-4c65-a912-bf202af2a2c6', '54aef5c3-3b72-4887-93ce-73eb171ddca7');
 
 -- Dumping structure for table postest.__efmigrationshistory
 CREATE TABLE IF NOT EXISTS `__efmigrationshistory` (
