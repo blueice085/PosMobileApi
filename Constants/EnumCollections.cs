@@ -8,7 +8,7 @@
             Inactive
         }
 
-        public enum Cupons
+        public enum CuponType
         {
             FiveDollars = 500,
             TenDollars = 1000

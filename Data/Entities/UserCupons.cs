@@ -6,7 +6,7 @@ namespace PosMobileApi.Data.Entities
     {
         public string Id { get; set; }
         public string UserId { get; set; }
-        public Cupons Cupon { get; set; }
+        public CuponType Cupon { get; set; }
         public int Quantity { get; set; }
         public DateTime ExchangedDate { get; set; }
 
