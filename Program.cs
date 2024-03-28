@@ -61,6 +61,8 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseHangfireDashboard();
+
 app.UseAuthorization();
 
 app.MapControllers();
